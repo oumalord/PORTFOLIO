@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { app, initializeDatabase } from './index';
+import { app, initializeDatabase } from '../api/_lib/index';
 
 const port = Number(process.env.PORT || 3001);
 

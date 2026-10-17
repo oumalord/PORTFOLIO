@@ -1,7 +1,7 @@
 # Admin panel guide
 
 Open `/#/admin` on your site. The editor is in `src/Admin.tsx`; its protected API is in
-`backend/index.ts`.
+`api/_lib/index.ts`.
 
 1. Enter the `ADMIN_PASSWORD` configured in the server environment. The password is never stored in the database.
 2. Use the tabs to edit the site: Layout, Theme, Hero, Services, About, Projects, Experience,

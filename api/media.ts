@@ -1,1 +1,1 @@
-export { app as default } from '../backend/index.ts';
+export { app as default } from './_lib/index';
