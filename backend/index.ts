@@ -162,14 +162,18 @@ app.get('/api/site', requireDatabase, asyncHandler(async (_req, res) => {
       [Array.from(paths)]
     );
     for (const row of media.rows) {
-      urls[row.path] = `/api/media/${row.path}`;
+      urls[row.path] = `/api/media?path=${encodeURIComponent(row.path)}`;
     }
   }
   res.json({ content, urls });
 }));
 
-app.get('/api/media/*', requireDatabase, asyncHandler(async (req, res) => {
-  const path = req.params[0];
+app.get('/api/media', requireDatabase, asyncHandler(async (req, res) => {
+  const path = req.query.path;
+  if (typeof path !== 'string' || !path.startsWith('img/')) {
+    res.status(400).json({ error: 'Invalid media path.' });
+    return;
+  }
   const result = await pool!.query<{ content: Buffer; content_type: string }>(
     'SELECT content, content_type FROM portfolio_media WHERE path = $1',
     [path]
