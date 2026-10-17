@@ -90,7 +90,39 @@ export default function Site() {
             link.rel = 'icon';
             document.head.appendChild(link);
         }
-        link.href = favicon;
+        const target = link;
+        target.type = 'image/png';
+        target.href = favicon;
+        // Crop the favicon into a circle via canvas
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = () => {
+            const size = 128;
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) {
+                return;
+            }
+            const side = Math.min(img.naturalWidth, img.naturalHeight);
+            ctx.beginPath();
+            ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
+            ctx.clip();
+            ctx.drawImage(
+                img,
+                (img.naturalWidth - side) / 2,
+                (img.naturalHeight - side) / 2,
+                side,
+                side,
+                0,
+                0,
+                size,
+                size
+            );
+            target.href = canvas.toDataURL('image/png');
+        };
+        img.src = favicon;
     }, [favicon]);
 
     if (loading) {
