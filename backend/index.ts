@@ -21,6 +21,7 @@ const allowedTypes: Record<string, string> = {
 };
 const cookieName = 'portfolio_admin';
 const sessionDurationSeconds = 7 * 24 * 60 * 60;
+let databaseInitialization: Promise<void> | undefined;
 
 type AsyncHandler = express.RequestHandler;
 
@@ -39,7 +40,29 @@ function requireDatabase(
     res.status(503).json({ error: 'DATABASE_URL is not configured on the server.' });
     return;
   }
-  next();
+  initializeDatabase().then(() => next(), next);
+}
+
+export function initializeDatabase(): Promise<void> {
+  if (!pool) {
+    return Promise.reject(new Error('DATABASE_URL is not configured on the server.'));
+  }
+  databaseInitialization ??= pool
+    .query(`
+      CREATE TABLE IF NOT EXISTS portfolio_content (
+        id SMALLINT PRIMARY KEY CHECK (id = 1),
+        content JSONB NOT NULL,
+        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+      CREATE TABLE IF NOT EXISTS portfolio_media (
+        path TEXT PRIMARY KEY,
+        content BYTEA NOT NULL,
+        content_type TEXT NOT NULL,
+        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+      );
+    `)
+    .then(() => undefined);
+  return databaseInitialization;
 }
 
 function safeEqual(left: string, right: string): boolean {
@@ -263,34 +286,4 @@ app.use((error: unknown, _req: express.Request, res: express.Response, _next: ex
   res.status(500).json({ error: 'The server could not complete the request.' });
 });
 
-async function start(): Promise<void> {
-  if (pool) {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS portfolio_content (
-        id SMALLINT PRIMARY KEY CHECK (id = 1),
-        content JSONB NOT NULL,
-        updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      );
-      CREATE TABLE IF NOT EXISTS portfolio_media (
-        path TEXT PRIMARY KEY,
-        content BYTEA NOT NULL,
-        content_type TEXT NOT NULL,
-        created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-      );
-    `);
-    console.log('Neon database connected; portfolio tables are ready.');
-  } else {
-    console.warn('DATABASE_URL is not set. Add it to .env to enable saved content and uploads.');
-  }
-  if (!adminPassword) {
-    console.warn('ADMIN_PASSWORD is not set. Add it to .env to enable admin sign-in.');
-  }
-  app.listen(port, () => {
-    console.log(`Portfolio API listening on http://localhost:${port}`);
-  });
-}
-
-start().catch((error: unknown) => {
-  console.error('Could not start the portfolio API:', error);
-  process.exitCode = 1;
-});
+export { app };
