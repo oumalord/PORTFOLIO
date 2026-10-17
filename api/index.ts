@@ -1,5 +1,5 @@
 import type { Request, Response } from 'express';
-import { app } from './_lib/index';
+import { app } from './_lib/index.ts';
 
 export default function handler(req: Request, res: Response): void {
   const url = new URL(req.url ?? '/', 'https://portfolio.local');
