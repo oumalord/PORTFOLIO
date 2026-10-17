@@ -186,7 +186,7 @@ export default function Site() {
     const waDigits = c.contact.whatsapp.replace(/\D/g, '');
     const waLink = waDigits ? `https://wa.me/${waDigits}` : '#/';
     const phoneDigits = c.contact.phone.replace(/[^\d+]/g, '');
-    const logo = resolveUrl(urls, c.brand.logo);
+    const logo = resolveUrl(urls, c.brand.logo) || favicon;
     const portrait = resolveUrl(urls, c.hero.portrait);
     const accents = c.hero.accents.map((p) => resolveUrl(urls, p)).filter(Boolean).slice(0, 4);
     const aboutImg = resolveUrl(urls, c.about.image);

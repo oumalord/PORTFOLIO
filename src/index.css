@@ -75,7 +75,9 @@ body {
 
 .brand img {
   height: 46px;
-  width: auto;
+  width: 46px;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .nav {
