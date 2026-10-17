@@ -1,7 +1,41 @@
 {
   "functions": {
-    "api/**/*.ts": {
+    "api/index.ts": {
       "maxDuration": 10
     }
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/api/_healthcheck",
+      "destination": "/api/index?_route=_healthcheck"
+    },
+    {
+      "source": "/api/site",
+      "destination": "/api/index?_route=site"
+    },
+    {
+      "source": "/api/media",
+      "destination": "/api/index?_route=media"
+    },
+    {
+      "source": "/api/admin/login",
+      "destination": "/api/index?_route=admin/login"
+    },
+    {
+      "source": "/api/admin/logout",
+      "destination": "/api/index?_route=admin/logout"
+    },
+    {
+      "source": "/api/admin/status",
+      "destination": "/api/index?_route=admin/status"
+    },
+    {
+      "source": "/api/admin/site",
+      "destination": "/api/index?_route=admin/site"
+    },
+    {
+      "source": "/api/admin/image",
+      "destination": "/api/index?_route=admin/image"
+    }
+  ]
 }

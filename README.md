@@ -36,10 +36,9 @@ The API creates the `portfolio_content` and `portfolio_media` tables on startup.
 as JSONB; uploaded media is stored in Neon as binary data. The media table can grow substantially
 as you add large files, so keep uploads within the editor's size limits. Never commit `.env`.
 
-For Vercel, connect this repository and add `DATABASE_URL`, `ADMIN_PASSWORD`, and `SESSION_SECRET`
-under Project Settings → Environment Variables, then redeploy. The `api/[...path].ts` function serves
-the API routes on Vercel. For a traditional Node host, run `npm run build` for the frontend and
-`npm start` for the API, and configure the host or reverse proxy to forward `/api` requests to it.
+For Vercel, the `api/index.ts` function handles the API routes through rewrites in `vercel.json`.
+For a traditional Node host, run `npm run build` for the frontend and `npm start` for the API, and
+configure the host or reverse proxy to forward `/api` requests to it.
 
 ## Using the admin
 1. Open `/#/admin` and enter the `ADMIN_PASSWORD` configured on the server.
