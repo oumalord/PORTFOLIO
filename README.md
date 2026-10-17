@@ -12,7 +12,7 @@ Education and certifications, Contact call-to-action, Partners banner (shown onl
 - `src/extras.ts` - section order/hide, custom sections, skills, projects, experience, certifications, downloads, labels, favicon, custom CSS
 - `src/extra.css` - styles for engineer sections and custom sections
 - `src/index.css` - base site styles
-- `api/_lib/index.ts` - API, admin password authentication, Neon persistence and media uploads
+- `api/index.ts` - API, admin password authentication, Neon persistence and media uploads
 - `backend/server.ts` - local API server entrypoint
 - `tests/tests.json` - smoke-test scenarios
 
