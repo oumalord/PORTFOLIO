@@ -65,7 +65,16 @@ export default function Site() {
     const { content, urls, loading } = useSiteData();
     const c = fill(content);
     const [menuOpen, setMenuOpen] = useState(false);
+    const [hash, setHash] = useState(window.location.hash);
 
+    useEffect(() => {
+        const onChange = () => {
+            setHash(window.location.hash);
+            window.scrollTo(0, 0);
+        };
+        window.addEventListener('hashchange', onChange);
+        return () => window.removeEventListener('hashchange', onChange);
+    }, []);
     useEffect(() => {
         document.title = c.seo.title;
     }, [c.seo.title]);
@@ -90,9 +99,11 @@ export default function Site() {
 
     const domId = (id: string) => (id === 'hero' ? 'home' : id);
     const go = (id: string) => (e: RME) => {
-        e.preventDefault();
         setMenuOpen(false);
-        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+        if (window.location.hash === '#/' + id || (id === 'home' && window.location.hash === '#/')) {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     };
 
     const style = {
@@ -129,6 +140,15 @@ export default function Site() {
         } else if (coreNav[id]) {
             navItems.push([domId(id), coreNav[id]]);
         }
+    });
+
+    const pageIds = navItems.map(([id]) => id).filter((id) => id !== 'home');
+    const current = hash.replace(/^#\/?/, '').split(/[?/]/)[0];
+    const page = pageIds.includes(current) ? current : 'home';
+    // Each nav item is its own page; everything not in the nav stays on Home
+    const visibleIds = ids.filter((id) => {
+        const dom = domId(id);
+        return page === 'home' ? !pageIds.includes(dom) : dom === page;
     });
 
     const waDigits = c.contact.whatsapp.replace(/\D/g, '');
@@ -410,7 +430,7 @@ export default function Site() {
                 </div>
             </header>
 
-            {ids.map((id) => {
+            {visibleIds.map((id) => {
                 const render = renderers[id] ?? devRenderers[id];
                 return render ? render() : customSection(id);
             })}

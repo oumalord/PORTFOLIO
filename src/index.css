@@ -356,8 +356,11 @@ body {
 
 .partners img {
   margin: 0 auto;
-  max-width: 900px;
-  width: 100%;
+  max-width: 360px;
+  max-height: 90px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 .gallery {
