@@ -1,0 +1,67 @@
+[
+  {
+    "name": "Public portfolio shows all main sections",
+    "sanity": true,
+    "viewport": "desktop",
+    "covers": [
+      "public site content load",
+      "hero, stats, services, about and footer rendering",
+      "default placeholder content"
+    ],
+    "description": "Verifies an anonymous visitor sees the full portfolio built from default content.",
+    "steps": [
+      "Open the site root without signing in",
+      "Look at the hero area, the stats row and the Services offered section",
+      "Scroll to the About section and the footer"
+    ],
+    "expected": "The name 'Your Name' is shown as the main heading, three stats such as '5+' are visible, seven numbered services (01. to 07.), each with a preview graphic, are shown, an About section and a footer with phone and email are visible."
+  },
+  {
+    "name": "Projects section shows eight clickable project cards",
+    "viewport": "desktop",
+    "covers": [
+      "projects section rendering",
+      "project preview images",
+      "project card links opening in a new tab"
+    ],
+    "description": "Verifies the Selected projects section lists the eight live projects and each links out to its site.",
+    "steps": [
+      "Open the site root without signing in",
+      "Scroll to the 'Selected projects' section",
+      "Look at the project cards and their titles"
+    ],
+    "expected": "Eight project cards are visible including RentFlow, KGGA LMS, MalariaWatch Kenya, Braidy's Website, Braidy's SMS, Prints of Africa, SafiGroom OS and AmaniCode Solutions, each with a preview area and a title link that opens its project site in a new tab."
+  },
+  {
+    "name": "Mobile menu navigates to the contact call-to-action",
+    "viewport": "mobile",
+    "covers": [
+      "responsive header",
+      "hamburger menu",
+      "anchor navigation",
+      "contact button"
+    ],
+    "description": "Verifies the mobile hamburger menu opens and the Contact me link scrolls to the booking section.",
+    "steps": [
+      "Open the site root on a mobile viewport",
+      "Tap the menu (hamburger) button",
+      "Tap the 'Contact me' link"
+    ],
+    "expected": "The menu closes and the 'Have a project or role in mind?' section with a 'Get in touch' button is visible on screen."
+  },
+  {
+    "name": "Admin page requires a password",
+    "viewport": "desktop",
+    "covers": [
+      "admin route",
+      "anonymous access denial",
+      "admin password prompt"
+    ],
+    "description": "Verifies an anonymous visitor cannot see the editor and is asked for the admin password.",
+    "steps": [
+      "Open the site root and then navigate to the #/admin address",
+      "Observe the page"
+    ],
+    "expected": "A 'Site admin' screen with an admin password field and a 'Sign in to manage your site' button is shown, and no editing fields or Save changes button are visible."
+  }
+]
