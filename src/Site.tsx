@@ -249,8 +249,9 @@ export default function Site() {
                     <p className="sec-intro">{c.services.intro}</p>
                     {c.services.items.map((s, i) => {
                         const img = resolveUrl(urls, s.image);
+                        const isItSupport = s.title.trim().toLowerCase() === 'it support';
                         return (
-                            <article className={'svc' + (i % 2 ? ' rev' : '')} key={i}>
+                            <article className={'svc' + (i % 2 ? ' rev' : '') + (isItSupport ? ' it-support' : '')} key={i}>
                                 <div className="svc-img">{img ? <img src={img} alt={s.title} /> : <ServiceArt title={s.title} index={i} />}</div>
                                 <div className="svc-copy">
                                     <span className="num">{String(i + 1).padStart(2, '0')}.</span>

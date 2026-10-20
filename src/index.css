@@ -290,6 +290,10 @@ body {
   border-radius: 20px;
 }
 
+.svc.it-support .svc-img img {
+  object-fit: contain;
+}
+
 .img-ph {
   background: linear-gradient(135deg, var(--dark), var(--accent));
   opacity: 0.18;
