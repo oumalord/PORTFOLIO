@@ -74,10 +74,10 @@ body {
 }
 
 .brand img {
-  height: 46px;
-  width: 46px;
-  object-fit: cover;
-  border-radius: 50%;
+  height: 56px;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
 }
 
 .nav {
