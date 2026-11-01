@@ -59,6 +59,17 @@
 .site .proj-shot { position: relative; }
 .site .proj-live-shot { background: #f5f7fa; }
 .site .proj-live-frame { display: block; width: 100%; height: 100%; border: 0; background: #f5f7fa; }
+.site .rentflow-shot { display: flex; align-items: center; justify-content: center; padding: 5%; background: linear-gradient(rgba(8, 24, 24, .12), rgba(8, 24, 24, .12)), url('/project-previews/rentflow-background.jpg') center 53% / cover no-repeat; }
+.site .rentflow-welcome { width: min(76%, 440px); padding: clamp(12px, 2.2vw, 22px); border: 1px solid rgba(17, 24, 24, .08); border-radius: 12px; background: #fff; box-shadow: 0 12px 32px rgba(8, 28, 29, .25); color: #141817; }
+.site .rentflow-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font: 700 clamp(9px, 1.15vw, 14px)/1.2 Arial, sans-serif; }
+.site .rentflow-logo { display: grid; width: clamp(25px, 3.2vw, 40px); aspect-ratio: 1; place-items: center; border-radius: 8px; background: #087a68; color: #fff; font-size: clamp(15px, 2vw, 24px); }
+.site .rentflow-heading { display: block; margin-bottom: 15px; font: 700 clamp(14px, 2.15vw, 26px)/1.2 Arial, sans-serif; }
+.site .rentflow-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font: 12px/1.3 Arial, sans-serif; }
+.site .rentflow-option { display: flex; align-items: center; gap: 9px; min-width: 0; padding: 9px; border: 1px solid #dce6e4; border-radius: 8px; }
+.site .rentflow-option > span:last-child { display: grid; gap: 4px; min-width: 0; }
+.site .rentflow-option strong { font-size: clamp(9px, 1.15vw, 14px); }
+.site .rentflow-option small { overflow: hidden; color: #56615f; font-size: clamp(7px, .82vw, 10px); text-overflow: ellipsis; white-space: nowrap; }
+.site .rentflow-option-icon { display: grid; flex: 0 0 auto; width: 32px; height: 32px; place-items: center; border-radius: 7px; background: #eaf5f2; color: #087a68; }
 .site .whatsapp-float { position: fixed; right: 24px; bottom: max(20px, env(safe-area-inset-bottom)); z-index: 60; display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 18px; border: 1px solid rgba(255,255,255,.28); border-radius: 999px; background: #128c4a; box-shadow: 0 8px 26px rgba(0,0,0,.24); color: #fff; font-size: .9rem; font-weight: 600; text-decoration: none; transition: background .2s, transform .2s, box-shadow .2s; }
 .site .whatsapp-float:hover { transform: translateY(-2px); background: #0c753d; box-shadow: 0 11px 30px rgba(0,0,0,.3); }
 .site .whatsapp-float:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }

@@ -1,13 +1,12 @@
 import { useEffect, useState } from 'react';
 import type { CSSProperties, MouseEvent as RME, ReactNode } from 'react';
-import { Brain, Briefcase, Code, Database, ExternalLink, Github, Headset, Lightbulb, Mail, MapPin, Menu, MessageCircle, Phone, Smartphone, Sparkles, X } from 'lucide-react';
+import { Brain, Briefcase, Code, Database, ExternalLink, Github, Headset, Lightbulb, LockKeyhole, Mail, MapPin, Menu, MessageCircle, Phone, Smartphone, Sparkles, UserRound, X } from 'lucide-react';
 import { resolveUrl, useSiteData } from './content';
 import type { Urls } from './content';
 import { CORE_NAMES, fill } from './extras';
 import './extra.css';
 
 const PROJECT_PREVIEWS: Record<string, string> = {
-    'demmyrentflow.vercel.app': '/project-previews/rentflow.svg',
     'kenyagirlguidesassociationlms.co.ke': '/project-previews/kgga.jpg',
     'malariawatch.vercel.app': '/project-previews/malariawatch.jpg',
     'braidysalon.vercel.app': '/project-previews/braidysalon.jpg',
@@ -126,6 +125,30 @@ function LiveProjectPreview({ url, title }: { url: string; title: string }) {
                 referrerPolicy='strict-origin-when-cross-origin'
                 sandbox='allow-forms allow-scripts allow-same-origin'
             />
+        </div>
+    );
+}
+
+function RentFlowPreview() {
+    return (
+        <div className="proj-shot rentflow-shot" aria-hidden="true">
+            <div className="rentflow-welcome">
+                <div className="rentflow-brand">
+                    <span className="rentflow-logo">R</span>
+                    <strong>RentFlow</strong>
+                </div>
+                <strong className="rentflow-heading">Welcome to RentFlow</strong>
+                <div className="rentflow-options">
+                    <div className="rentflow-option">
+                        <span className="rentflow-option-icon"><LockKeyhole size={17} /></span>
+                        <span><strong>Sign in</strong><small>Already have an account?</small></span>
+                    </div>
+                    <div className="rentflow-option">
+                        <span className="rentflow-option-icon"><UserRound size={17} /></span>
+                        <span><strong>Sign up</strong><small>New tenant</small></span>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 }
@@ -410,11 +433,14 @@ export default function Site() {
                             const projectHost = p.demoUrl.match(/^https?:\/\/([^/:?#]+)/i)?.[1].toLowerCase();
                             const img = resolveUrl(urls, p.image) || (projectHost ? PROJECT_PREVIEWS[projectHost] || '' : '');
                             const isElectronics = projectHost === 'star-electronics-africa.vercel.app';
+                            const isRentFlow = projectHost === 'demmyrentflow.vercel.app';
                             const description = p.description;
                             const tags = p.tags.filter(Boolean);
                             return (
                                 <article className='proj' key={i}>
-                                    {isElectronics
+                                    {isRentFlow
+                                        ? <RentFlowPreview />
+                                        : isElectronics
                                         ? <LiveProjectPreview url={p.demoUrl} title={p.title} />
                                         : <ProjectShot key={img} title={p.title} description={description} tags={tags} demoUrl={p.demoUrl} image={img} />}
                                     <div className='proj-body'>
