@@ -20,9 +20,10 @@ Education and certifications, Contact call-to-action, Partners banner (shown onl
 Seven services are listed by default. Each shows an icon preview panel; upload an image in the admin to replace it.
 
 ## Projects section
-Each project card shows a preview image and opens the project in a new tab when clicked.
-The preview is generated automatically from the project link (WordPress mShots screenshot service).
-Upload your own screenshot in the admin to override it.
+Each project card shows an instant preview rendered by the portfolio itself and opens the project
+in a new tab when clicked. No third-party screenshot service is used. To show a real screenshot of
+a project, upload it in the Projects tab in the admin; it is stored with the portfolio's media and
+shown on top of the built-in preview.
 
 ## Run locally with Neon
 

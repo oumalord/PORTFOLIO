@@ -61,6 +61,27 @@ function Video({ src, urls }: { src: string; urls: Urls }) {
     return u ? <video className="vid" src={u} controls /> : null;
 }
 
+function ProjectPreview({ title, description, tags, demoUrl }: { title: string; description: string; tags: string[]; demoUrl: string }) {
+    const domain = demoUrl.replace(/^https?:\/\//, '').split('/')[0];
+    return (
+        <div className='proj-preview' aria-hidden='true'>
+            <div className='proj-preview-browser'>
+                <span />
+                <span />
+                <span />
+                <small>{domain || 'Featured project'}</small>
+            </div>
+            <div className='proj-preview-content'>
+                <span className='proj-preview-kicker'>{tags[0] || 'Featured project'}</span>
+                <strong>{title}</strong>
+                <span className='proj-preview-description'>{description}</span>
+                <span className='proj-preview-cta'>Explore project</span>
+            </div>
+            <div className='proj-preview-orb' />
+        </div>
+    );
+}
+
 export default function Site() {
     const { content, urls, loading } = useSiteData();
     const c = fill(content);
@@ -247,20 +268,23 @@ export default function Site() {
                 <div className="wrap">
                     <h2 className="sec-title">{c.services.heading}</h2>
                     <p className="sec-intro">{c.services.intro}</p>
-                    {c.services.items.map((s, i) => {
-                        const img = resolveUrl(urls, s.image);
-                        const isItSupport = s.title.trim().toLowerCase() === 'it support';
-                        return (
-                            <article className={'svc' + (i % 2 ? ' rev' : '') + (isItSupport ? ' it-support' : '')} key={i}>
-                                <div className="svc-img">{img ? <img src={img} alt={s.title} /> : <ServiceArt title={s.title} index={i} />}</div>
-                                <div className="svc-copy">
-                                    <span className="num">{String(i + 1).padStart(2, '0')}.</span>
-                                    <h3>{s.title}</h3>
-                                    <p>{s.description}</p>
-                                </div>
-                            </article>
-                        );
-                    })}
+                    <div className="svc-grid">
+                        {c.services.items.map((s, i) => {
+                            const img = resolveUrl(urls, s.image);
+                            const title = s.title.trim().toLowerCase();
+                            const imageFit = title === 'it support' || title === 'app development';
+                            return (
+                                <article className={'svc' + (i % 2 ? ' rev' : '') + (imageFit ? ' image-fit' : '')} key={i}>
+                                    <div className="svc-img">{img ? <img src={img} alt={s.title} /> : <ServiceArt title={s.title} index={i} />}</div>
+                                    <div className="svc-copy">
+                                        <span className="num">{String(i + 1).padStart(2, '0')}.</span>
+                                        <h3>{s.title}</h3>
+                                        <p>{s.description}</p>
+                                    </div>
+                                </article>
+                            );
+                        })}
+                    </div>
                     {devRenderers.skills()}
                 </div>
             </section>
@@ -334,10 +358,13 @@ export default function Site() {
                     <div className='proj-grid'>
                         {c.projects.entries.map((p, i) => {
                             const link = p.demoUrl || p.repoUrl;
-                            const img = resolveUrl(urls, p.image) || (p.demoUrl ? 'https://s0.wp.com/mshots/v1/' + encodeURIComponent(p.demoUrl) + '?w=1000&h=625' : '');
+                            const img = resolveUrl(urls, p.image);
                             return (
                                 <article className='proj' key={i}>
-                                    <div className='proj-shot'>{img ? <img src={img} alt={p.title + ' preview'} loading='lazy' /> : <div className='img-ph' />}</div>
+                                    <div className='proj-shot'>
+                                        <ProjectPreview title={p.title} description={p.description} tags={p.tags} demoUrl={p.demoUrl} />
+                                        {img && <img src={img} alt={p.title + ' preview'} loading='lazy' onError={e => { e.currentTarget.hidden = true; }} />}
+                                    </div>
                                     <div className='proj-body'>
                                         <h3>{link ? <a className='proj-link' href={link} target='_blank' rel='noreferrer'>{p.title}</a> : p.title}</h3>
                                         <p>{p.description}</p>
