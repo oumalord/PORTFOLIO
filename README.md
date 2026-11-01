@@ -22,8 +22,10 @@ Seven services are listed by default. Each shows an icon preview panel; upload a
 ## Projects section
 Each project card shows an instant preview rendered by the portfolio itself and opens the project
 in a new tab when clicked. No external screenshot service is called while visitors browse the site.
-Upload a screenshot in the Projects tab to show the actual project image; if it cannot load, the
-built-in preview is shown instead.
+Compressed static captures of the configured live projects are served locally from
+`public/project-previews/` for instant loading. Upload a screenshot in the Projects tab to override
+a capture. Update the domain-to-image map in `src/Site.tsx` when replacing or adding a project
+capture; if an image cannot load, the built-in preview is shown instead.
 
 ## Run locally with Neon
 

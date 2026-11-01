@@ -6,6 +6,17 @@ import type { Urls } from './content';
 import { CORE_NAMES, fill } from './extras';
 import './extra.css';
 
+const PROJECT_PREVIEWS: Record<string, string> = {
+    'demmyrentflow.vercel.app': '/project-previews/rentflow.jpg',
+    'kenyagirlguidesassociationlms.co.ke': '/project-previews/kgga.jpg',
+    'malariawatch.vercel.app': '/project-previews/malariawatch.jpg',
+    'braidysalon.vercel.app': '/project-previews/braidysalon.jpg',
+    'braidysms.vercel.app': '/project-previews/braidysms.jpg',
+    'printsofafrica.vercel.app': '/project-previews/prints-of-africa.jpg',
+    'safi-groom-os.vercel.app': '/project-previews/safi-groom.jpg',
+    'amanicodesolutions.com': '/project-previews/amanicode.jpg',
+};
+
 function pickIcon(title: string) {
     const t = title.toLowerCase();
     if (/\bai\b|\bml\b|machine|intelligen/.test(t)) {
@@ -380,7 +391,8 @@ export default function Site() {
                     <div className='proj-grid'>
                         {c.projects.entries.map((p, i) => {
                             const link = p.demoUrl || p.repoUrl;
-                            const img = resolveUrl(urls, p.image);
+                            const projectHost = p.demoUrl.match(/^https?:\/\/([^/:?#]+)/i)?.[1].toLowerCase();
+                            const img = resolveUrl(urls, p.image) || (projectHost ? PROJECT_PREVIEWS[projectHost] || '' : '');
                             return (
                                 <article className='proj' key={i}>
                                     <ProjectShot key={img} title={p.title} description={p.description} tags={p.tags} demoUrl={p.demoUrl} image={img} />
