@@ -380,11 +380,7 @@ export default function Site() {
                     <div className='proj-grid'>
                         {c.projects.entries.map((p, i) => {
                             const link = p.demoUrl || p.repoUrl;
-                            const projectUrl = p.demoUrl.trim();
-                            const livePreview = /^https?:\/\//i.test(projectUrl)
-                                ? `https://image.thum.io/get/width/1000/crop/625/?url=${encodeURIComponent(projectUrl)}`
-                                : '';
-                            const img = resolveUrl(urls, p.image) || livePreview;
+                            const img = resolveUrl(urls, p.image);
                             return (
                                 <article className='proj' key={i}>
                                     <ProjectShot title={p.title} description={p.description} tags={p.tags} demoUrl={p.demoUrl} image={img} />
