@@ -82,6 +82,28 @@ function ProjectPreview({ title, description, tags, demoUrl }: { title: string; 
     );
 }
 
+function ProjectShot({ title, description, tags, demoUrl, image }: { title: string; description: string; tags: string[]; demoUrl: string; image: string }) {
+    const [imageLoaded, setImageLoaded] = useState(false);
+    const [imageFailed, setImageFailed] = useState(false);
+
+    return (
+        <div className='proj-shot'>
+            {(!imageLoaded || imageFailed) && <ProjectPreview title={title} description={description} tags={tags} demoUrl={demoUrl} />}
+            {image && !imageFailed && (
+                <img
+                    src={image}
+                    alt={title + ' preview'}
+                    loading='lazy'
+                    decoding='async'
+                    referrerPolicy='no-referrer'
+                    onLoad={() => setImageLoaded(true)}
+                    onError={() => setImageFailed(true)}
+                />
+            )}
+        </div>
+    );
+}
+
 export default function Site() {
     const { content, urls, loading } = useSiteData();
     const c = fill(content);
@@ -365,10 +387,7 @@ export default function Site() {
                             const img = resolveUrl(urls, p.image) || livePreview;
                             return (
                                 <article className='proj' key={i}>
-                                    <div className='proj-shot'>
-                                        <ProjectPreview title={p.title} description={p.description} tags={p.tags} demoUrl={p.demoUrl} />
-                                        {img && <img src={img} alt={p.title + ' preview'} loading='lazy' decoding='async' referrerPolicy='no-referrer' onError={e => { e.currentTarget.hidden = true; }} />}
-                                    </div>
+                                    <ProjectShot title={p.title} description={p.description} tags={p.tags} demoUrl={p.demoUrl} image={img} />
                                     <div className='proj-body'>
                                         <h3>{link ? <a className='proj-link' href={link} target='_blank' rel='noreferrer'>{p.title}</a> : p.title}</h3>
                                         <p>{p.description}</p>
