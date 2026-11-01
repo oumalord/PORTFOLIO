@@ -15,6 +15,7 @@ const PROJECT_PREVIEWS: Record<string, string> = {
     'printsofafrica.vercel.app': '/project-previews/prints-of-africa.jpg',
     'safi-groom-os.vercel.app': '/project-previews/safi-groom.jpg',
     'amanicodesolutions.com': '/project-previews/amanicode.jpg',
+    'star-electronics-africa.vercel.app': '/project-previews/star-electronics.svg',
 };
 
 function pickIcon(title: string) {
@@ -393,14 +394,16 @@ export default function Site() {
                             const link = p.demoUrl || p.repoUrl;
                             const projectHost = p.demoUrl.match(/^https?:\/\/([^/:?#]+)/i)?.[1].toLowerCase();
                             const img = resolveUrl(urls, p.image) || (projectHost ? PROJECT_PREVIEWS[projectHost] || '' : '');
+                            const description = p.description;
+                            const tags = p.tags.filter(Boolean);
                             return (
                                 <article className='proj' key={i}>
-                                    <ProjectShot key={img} title={p.title} description={p.description} tags={p.tags} demoUrl={p.demoUrl} image={img} />
+                                    <ProjectShot key={img} title={p.title} description={description} tags={tags} demoUrl={p.demoUrl} image={img} />
                                     <div className='proj-body'>
                                         <h3>{link ? <a className='proj-link' href={link} target='_blank' rel='noreferrer'>{p.title}</a> : p.title}</h3>
-                                        <p>{p.description}</p>
+                                        <p>{description}</p>
                                         <div className='tags'>
-                                            {p.tags.filter(Boolean).map((t, j) => (
+                                            {tags.map((t, j) => (
                                                 <span className='tag' key={j}>
                                                     {t}
                                                 </span>

@@ -94,6 +94,7 @@ export const EXTRA: Extra = {
             { title: 'Prints of Africa', description: 'An online and Nairobi-based fashion store for modest, elegant ready-to-wear outfits, with a size calculator, WhatsApp and M-Pesa ordering and delivery across Kenya.', tags: ['E-commerce', 'Fashion'], image: '', repoUrl: '', demoUrl: 'https://printsofafrica.vercel.app/' },
             { title: 'SafiGroom OS', description: 'A live web application. Open it to explore the project.', tags: ['Web app', 'Vercel'], image: '', repoUrl: '', demoUrl: 'https://safi-groom-os.vercel.app/' },
             { title: 'AmaniCode Solutions', description: 'Company website for AmaniCode, which builds software and digital platforms for African healthcare, education, agriculture, fintech and public services.', tags: ['Company website', 'Software'], image: '', repoUrl: '', demoUrl: 'https://amanicodesolutions.vercel.app/' },
+            { title: 'Electronics Software', description: 'A point-of-sale and shop-management app for electronics retail, bringing checkout, stock control and sales tracking into one workspace.', tags: ['POS', 'Inventory', 'Sales tracking'], image: '', repoUrl: '', demoUrl: 'https://star-electronics-africa.vercel.app/' },
         ],
     },
     experience: {
@@ -144,5 +145,22 @@ export function fill(c: Content): Full {
     if (entries.length > 0 && entries.every((e) => placeholders.includes(e.title))) {
         merged.projects = { ...merged.projects, entries: EXTRA.projects.entries, intro: EXTRA.projects.intro };
     }
+    const electronics = EXTRA.projects.entries.find((entry) => entry.title === 'Electronics Software');
+    merged.projects = {
+        ...merged.projects,
+        entries: (merged.projects?.entries ?? []).map((entry) => {
+            const host = entry.demoUrl.match(/^https?:\/\/([^/:?#]+)/i)?.[1].toLowerCase();
+            if (!electronics || (entry.title !== electronics.title && host !== 'star-electronics-africa.vercel.app')) {
+                return entry;
+            }
+            return {
+                ...entry,
+                description: entry.description || electronics.description,
+                tags: entry.tags.some(Boolean) ? entry.tags : electronics.tags,
+                repoUrl: /^https?:\/\//i.test(entry.repoUrl) ? entry.repoUrl : '',
+                demoUrl: entry.demoUrl || electronics.demoUrl,
+            };
+        }),
+    };
     return merged;
 }
