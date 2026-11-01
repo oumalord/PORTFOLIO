@@ -7,7 +7,7 @@ import { CORE_NAMES, fill } from './extras';
 import './extra.css';
 
 const PROJECT_PREVIEWS: Record<string, string> = {
-    'demmyrentflow.vercel.app': '/project-previews/rentflow.jpg',
+    'demmyrentflow.vercel.app': '/project-previews/rentflow.svg',
     'kenyagirlguidesassociationlms.co.ke': '/project-previews/kgga.jpg',
     'malariawatch.vercel.app': '/project-previews/malariawatch.jpg',
     'braidysalon.vercel.app': '/project-previews/braidysalon.jpg',
@@ -15,7 +15,6 @@ const PROJECT_PREVIEWS: Record<string, string> = {
     'printsofafrica.vercel.app': '/project-previews/prints-of-africa.jpg',
     'safi-groom-os.vercel.app': '/project-previews/safi-groom.jpg',
     'amanicodesolutions.com': '/project-previews/amanicode.jpg',
-    'star-electronics-africa.vercel.app': '/project-previews/star-electronics.svg',
 };
 
 function pickIcon(title: string) {
@@ -112,6 +111,21 @@ function ProjectShot({ title, description, tags, demoUrl, image }: { title: stri
                     onError={() => setImageFailed(true)}
                 />
             )}
+        </div>
+    );
+}
+
+function LiveProjectPreview({ url, title }: { url: string; title: string }) {
+    return (
+        <div className='proj-shot proj-live-shot'>
+            <iframe
+                className='proj-live-frame'
+                src={url}
+                title={`${title} live preview`}
+                loading='lazy'
+                referrerPolicy='strict-origin-when-cross-origin'
+                sandbox='allow-forms allow-scripts allow-same-origin'
+            />
         </div>
     );
 }
@@ -394,11 +408,14 @@ export default function Site() {
                             const link = p.demoUrl || p.repoUrl;
                             const projectHost = p.demoUrl.match(/^https?:\/\/([^/:?#]+)/i)?.[1].toLowerCase();
                             const img = resolveUrl(urls, p.image) || (projectHost ? PROJECT_PREVIEWS[projectHost] || '' : '');
+                            const isElectronics = projectHost === 'star-electronics-africa.vercel.app';
                             const description = p.description;
                             const tags = p.tags.filter(Boolean);
                             return (
                                 <article className='proj' key={i}>
-                                    <ProjectShot key={img} title={p.title} description={description} tags={tags} demoUrl={p.demoUrl} image={img} />
+                                    {isElectronics
+                                        ? <LiveProjectPreview url={p.demoUrl} title={p.title} />
+                                        : <ProjectShot key={img} title={p.title} description={description} tags={tags} demoUrl={p.demoUrl} image={img} />}
                                     <div className='proj-body'>
                                         <h3>{link ? <a className='proj-link' href={link} target='_blank' rel='noreferrer'>{p.title}</a> : p.title}</h3>
                                         <p>{description}</p>

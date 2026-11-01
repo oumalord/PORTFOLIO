@@ -57,6 +57,8 @@
 .site .links a { position: relative; z-index: 2; }
 .site .proj-shot { aspect-ratio: 16 / 10; overflow: hidden; background: linear-gradient(135deg, var(--dark), var(--accent)); }
 .site .proj-shot { position: relative; }
+.site .proj-live-shot { background: #f5f7fa; }
+.site .proj-live-frame { display: block; width: 100%; height: 100%; border: 0; background: #f5f7fa; }
 .site .proj-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 0.18s, transform 0.4s; }
 .site .proj-shot.has-image img { opacity: 1; }
 .site .proj-shot.has-image .proj-preview { opacity: 0; }

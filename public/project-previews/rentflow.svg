@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="625" viewBox="0 0 1000 625">
+  <defs>
+    <linearGradient id="shade" x2="0" y2="1">
+      <stop stop-color="#081b20" stop-opacity=".12"/>
+      <stop offset="1" stop-color="#081b20" stop-opacity=".34"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#102c2b" flood-opacity=".28"/>
+    </filter>
+  </defs>
+  <image href="rentflow-background.jpg" width="1000" height="625" preserveAspectRatio="xMidYMid slice"/>
+  <rect width="1000" height="625" fill="url(#shade)"/>
+  <g filter="url(#shadow)">
+    <rect x="280" y="188" width="440" height="250" rx="14" fill="#fff"/>
+    <rect x="302" y="210" width="40" height="40" rx="8" fill="#087a68"/>
+    <path d="M312 236a12 12 0 1 1 20-9" fill="none" stroke="#f6b51b" stroke-width="4" stroke-linecap="round"/>
+    <path d="M326 221v10h-10" fill="none" stroke="#62d5bd" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="355" y="236" fill="#101214" font-family="Arial,sans-serif" font-size="15" font-weight="700">RentFlow</text>
+    <text x="302" y="286" fill="#111" font-family="Arial,sans-serif" font-size="27" font-weight="700">Welcome to RentFlow</text>
+    <g font-family="Arial,sans-serif">
+      <rect x="302" y="310" width="188" height="72" rx="9" fill="#fff" stroke="#dce6e4"/>
+      <rect x="314" y="327" width="36" height="36" rx="7" fill="#eaf5f2"/>
+      <path d="M326 342v-4a6 6 0 0 1 12 0v4m-14 0h16v12h-16z" fill="none" stroke="#087a68" stroke-width="1.8" stroke-linejoin="round"/>
+      <text x="359" y="344" fill="#131817" font-size="14" font-weight="700">Sign in</text>
+      <text x="359" y="361" fill="#56615f" font-size="11">Already have an account?</text>
+      <rect x="510" y="310" width="188" height="72" rx="9" fill="#f8fbfa" stroke="#dce6e4"/>
+      <rect x="522" y="327" width="36" height="36" rx="7" fill="#eaf5f2"/>
+      <circle cx="540" cy="339" r="4" fill="none" stroke="#087a68" stroke-width="1.8"/>
+      <path d="M533 353v-2a7 7 0 0 1 14 0v2" fill="none" stroke="#087a68" stroke-width="1.8" stroke-linecap="round"/>
+      <text x="567" y="344" fill="#131817" font-size="14" font-weight="700">Sign up</text>
+      <text x="567" y="361" fill="#56615f" font-size="11">New tenant</text>
+    </g>
+  </g>
+</svg>
