@@ -358,12 +358,16 @@ export default function Site() {
                     <div className='proj-grid'>
                         {c.projects.entries.map((p, i) => {
                             const link = p.demoUrl || p.repoUrl;
-                            const img = resolveUrl(urls, p.image);
+                            const projectUrl = p.demoUrl.trim();
+                            const livePreview = /^https?:\/\//i.test(projectUrl)
+                                ? `https://image.thum.io/get/width/1000/crop/625/?url=${encodeURIComponent(projectUrl)}`
+                                : '';
+                            const img = resolveUrl(urls, p.image) || livePreview;
                             return (
                                 <article className='proj' key={i}>
                                     <div className='proj-shot'>
                                         <ProjectPreview title={p.title} description={p.description} tags={p.tags} demoUrl={p.demoUrl} />
-                                        {img && <img src={img} alt={p.title + ' preview'} loading='lazy' onError={e => { e.currentTarget.hidden = true; }} />}
+                                        {img && <img src={img} alt={p.title + ' preview'} loading='lazy' decoding='async' referrerPolicy='no-referrer' onError={e => { e.currentTarget.hidden = true; }} />}
                                     </div>
                                     <div className='proj-body'>
                                         <h3>{link ? <a className='proj-link' href={link} target='_blank' rel='noreferrer'>{p.title}</a> : p.title}</h3>

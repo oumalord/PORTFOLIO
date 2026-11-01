@@ -18,7 +18,7 @@ const msg = (e: unknown) => (e instanceof Error ? e.message : 'Something went wr
 const human = (k: string) => k.replace(/([A-Z])/g, ' $1').replace(/^./, (s) => s.toUpperCase());
 
 const LABELS: Record<string, string> = {
-    demoUrl: 'Project link (the card opens this)',
+    demoUrl: 'Project link (opens the project and generates its preview)',
     repoUrl: 'Code link (optional)',
 };
 

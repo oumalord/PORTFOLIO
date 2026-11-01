@@ -21,9 +21,9 @@ Seven services are listed by default. Each shows an icon preview panel; upload a
 
 ## Projects section
 Each project card shows an instant preview rendered by the portfolio itself and opens the project
-in a new tab when clicked. No third-party screenshot service is used. To show a real screenshot of
-a project, upload it in the Projects tab in the admin; it is stored with the portfolio's media and
-shown on top of the built-in preview.
+in a new tab when clicked. When no custom screenshot is uploaded, a screenshot is generated from
+the project's saved link using Thum.io. Uploaded screenshots in the Projects tab override generated
+previews; if an image cannot load, the built-in preview is shown instead.
 
 ## Run locally with Neon
 
