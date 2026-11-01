@@ -114,21 +114,6 @@ function ProjectShot({ title, description, tags, demoUrl, image }: { title: stri
     );
 }
 
-function LiveProjectPreview({ url, title }: { url: string; title: string }) {
-    return (
-        <div className='proj-shot proj-live-shot'>
-            <iframe
-                className='proj-live-frame'
-                src={url}
-                title={`${title} live preview`}
-                loading='lazy'
-                referrerPolicy='strict-origin-when-cross-origin'
-                sandbox='allow-forms allow-scripts allow-same-origin'
-            />
-        </div>
-    );
-}
-
 function RentFlowPreview() {
     return (
         <div className="proj-shot rentflow-shot" aria-hidden="true">
@@ -432,7 +417,6 @@ export default function Site() {
                             const link = p.demoUrl || p.repoUrl;
                             const projectHost = p.demoUrl.match(/^https?:\/\/([^/:?#]+)/i)?.[1].toLowerCase();
                             const img = resolveUrl(urls, p.image) || (projectHost ? PROJECT_PREVIEWS[projectHost] || '' : '');
-                            const isElectronics = projectHost === 'star-electronics-africa.vercel.app';
                             const isRentFlow = projectHost === 'demmyrentflow.vercel.app';
                             const description = p.description;
                             const tags = p.tags.filter(Boolean);
@@ -440,8 +424,6 @@ export default function Site() {
                                 <article className='proj' key={i}>
                                     {isRentFlow
                                         ? <RentFlowPreview />
-                                        : isElectronics
-                                        ? <LiveProjectPreview url={p.demoUrl} title={p.title} />
                                         : <ProjectShot key={img} title={p.title} description={description} tags={tags} demoUrl={p.demoUrl} image={img} />}
                                     <div className='proj-body'>
                                         <h3>{link ? <a className='proj-link' href={link} target='_blank' rel='noreferrer'>{p.title}</a> : p.title}</h3>

@@ -24,10 +24,10 @@ Each project card shows an instant preview rendered by the portfolio itself and 
 in a new tab when clicked. No external screenshot service is called while visitors browse the site.
 Compressed static captures for configured projects are served locally from
 `public/project-previews/` for instant loading. RentFlow uses its local background image directly
-with a rendered welcome card; Electronics Software is embedded as a live preview from its demo URL.
-Upload a screenshot in the Projects tab to override a static capture. Update the domain-to-image map
-in `src/Site.tsx` when replacing or adding a project preview; if an image cannot load, the built-in
-preview is shown instead.
+with a rendered welcome card. Electronics Software uses its image uploaded in the admin; clicking
+the preview opens its demo URL. Upload a screenshot in the Projects tab to override a static
+capture. Update the domain-to-image map in `src/Site.tsx` when replacing or adding a project preview;
+if an image cannot load, the built-in preview is shown instead.
 
 The contact call-to-action opens a prefilled email to the configured contact address. A floating
 WhatsApp button uses the configured WhatsApp number and opens a chat with a call request.
