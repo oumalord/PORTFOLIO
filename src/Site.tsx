@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { CSSProperties, MouseEvent as RME, ReactNode } from 'react';
-import { Brain, Briefcase, Code, Database, ExternalLink, Github, Headset, Lightbulb, Mail, MapPin, Menu, Phone, Smartphone, Sparkles, X } from 'lucide-react';
+import { Brain, Briefcase, Code, Database, ExternalLink, Github, Headset, Lightbulb, Mail, MapPin, Menu, MessageCircle, Phone, Smartphone, Sparkles, X } from 'lucide-react';
 import { resolveUrl, useSiteData } from './content';
 import type { Urls } from './content';
 import { CORE_NAMES, fill } from './extras';
@@ -252,8 +252,9 @@ export default function Site() {
         return page === 'home' ? !pageIds.includes(dom) : dom === page;
     });
 
-    const waDigits = c.contact.whatsapp.replace(/\D/g, '');
-    const waLink = waDigits ? `https://wa.me/${waDigits}` : '#/';
+    const waDigits = (c.contact.whatsapp || c.contact.phone).replace(/\D/g, '');
+    const waLink = `https://wa.me/${waDigits}?text=${encodeURIComponent('Hi, I would like to have a WhatsApp call to discuss a project.')}`;
+    const emailLink = `mailto:${c.contact.email}?subject=${encodeURIComponent('Project enquiry')}&body=${encodeURIComponent('Hi,\n\nI would like to discuss a project or opportunity with you.\n\n')}`;
     const phoneDigits = c.contact.phone.replace(/[^\d+]/g, '');
     const logo = resolveUrl(urls, c.brand.logo) || favicon;
     const portrait = resolveUrl(urls, c.hero.portrait);
@@ -357,7 +358,7 @@ export default function Site() {
                     <h2>{c.contact.heading}</h2>
                     <p>{c.contact.text}</p>
                     {c.contact.buttonLabel && (
-                        <a className="btn" href={waLink} target="_blank" rel="noreferrer">
+                        <a className="btn" href={emailLink}>
                             {c.contact.buttonLabel}
                         </a>
                     )}
@@ -545,6 +546,19 @@ export default function Site() {
                 const render = renderers[id] ?? devRenderers[id];
                 return render ? render() : customSection(id);
             })}
+
+            {waDigits && (
+                <a
+                    className="whatsapp-float"
+                    href={waLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Start a WhatsApp chat or call"
+                >
+                    <MessageCircle size={22} strokeWidth={2.2} aria-hidden="true" />
+                    <span>WhatsApp call</span>
+                </a>
+            )}
 
             <footer className="ftr">
                 <div className="wrap">

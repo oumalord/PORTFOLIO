@@ -28,6 +28,9 @@ from its demo URL. Upload a screenshot in the Projects tab to override a static 
 domain-to-image map in `src/Site.tsx` when replacing or adding a project preview; if an image cannot
 load, the built-in preview is shown instead.
 
+The contact call-to-action opens a prefilled email to the configured contact address. A floating
+WhatsApp button uses the configured WhatsApp number and opens a chat with a call request.
+
 ## Run locally with Neon
 
 1. Create a Neon project and copy its pooled or direct connection string.
