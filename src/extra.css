@@ -57,7 +57,10 @@
 .site .links a { position: relative; z-index: 2; }
 .site .proj-shot { aspect-ratio: 16 / 10; overflow: hidden; background: linear-gradient(135deg, var(--dark), var(--accent)); }
 .site .proj-shot { position: relative; }
-.site .proj-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 0.4s; }
+.site .proj-shot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 0.18s, transform 0.4s; }
+.site .proj-shot.has-image img { opacity: 1; }
+.site .proj-shot.has-image .proj-preview { opacity: 0; }
+.site .proj-preview { transition: opacity 0.18s; }
 .site .proj:hover .proj-shot img { transform: scale(1.04); }
 .site .proj-preview { position: relative; display: flex; flex-direction: column; width: 100%; height: 100%; overflow: hidden; color: #fff; background: radial-gradient(ellipse at 82% 78%, color-mix(in srgb, var(--accent) 50%, transparent), transparent 44%), linear-gradient(135deg, color-mix(in srgb, var(--dark) 94%, var(--accent)), var(--dark)); }
 .site .proj-preview-browser { position: relative; z-index: 1; display: flex; align-items: center; gap: 5px; height: 32px; padding: 0 12px; border-bottom: 1px solid rgba(255,255,255,.14); background: rgba(0,0,0,.18); }

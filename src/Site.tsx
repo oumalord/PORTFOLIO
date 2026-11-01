@@ -87,8 +87,8 @@ function ProjectShot({ title, description, tags, demoUrl, image }: { title: stri
     const [imageFailed, setImageFailed] = useState(false);
 
     return (
-        <div className='proj-shot'>
-            {(!imageLoaded || imageFailed) && <ProjectPreview title={title} description={description} tags={tags} demoUrl={demoUrl} />}
+        <div className={`proj-shot${imageLoaded ? ' has-image' : ''}`}>
+            <ProjectPreview title={title} description={description} tags={tags} demoUrl={demoUrl} />
             {image && !imageFailed && (
                 <img
                     src={image}
@@ -383,7 +383,7 @@ export default function Site() {
                             const img = resolveUrl(urls, p.image);
                             return (
                                 <article className='proj' key={i}>
-                                    <ProjectShot title={p.title} description={p.description} tags={p.tags} demoUrl={p.demoUrl} image={img} />
+                                    <ProjectShot key={img} title={p.title} description={p.description} tags={p.tags} demoUrl={p.demoUrl} image={img} />
                                     <div className='proj-body'>
                                         <h3>{link ? <a className='proj-link' href={link} target='_blank' rel='noreferrer'>{p.title}</a> : p.title}</h3>
                                         <p>{p.description}</p>
